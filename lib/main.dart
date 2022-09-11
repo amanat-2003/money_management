@@ -41,7 +41,6 @@ class MyApp extends StatelessWidget {
               ),
         ),
       ),
-
       home: MyHomePage(),
     );
   }
@@ -57,130 +56,82 @@ class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _userTransactions = [
     Transaction(
       id: 't1',
-      title: 'Mobile Phone',
+      title: 'Mobile Phone 1',
       amount: 231,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: 't1',
-      title: 'Mobile Phone',
-      amount: 231,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: 't1',
-      title: 'Mobile Phone',
-      amount: 231,
-      date: DateTime.now(),
-    ),
-    // Transaction(
-    //   id: 't1',
-    //   title: 'Mobile Phone',
-    //   amount: 231,
-    //   date: DateTime.now(),
-    // ),
-    // Transaction(
-    //   id: 't1',
-    //   title: 'Mobile Phone',
-    //   amount: 231,
-    //   date: DateTime.now(),
-    // ),
-    // Transaction(
-    //   id: 't1',
-    //   title: 'Mobile Phone',
-    //   amount: 231,
-    //   date: DateTime.now(),
-    // ),
-    // Transaction(
-    //   id: 't1',
-    //   title: 'Mobile Phone',
-    //   amount: 231,
-    //   date: DateTime.now(),
-    // ),
-    // Transaction(
-    //   id: 't1',
-    //   title: 'Mobile Phone',
-    //   amount: 231,
-    //   date: DateTime.now(),
-    // ),
-    // Transaction(
-    //   id: 't1',
-    //   title: 'Mobile Phone',
-    //   amount: 231,
-    //   date: DateTime.now(),
-    // ),
-    // Transaction(
-    //   id: 't1',
-    //   title: 'Mobile Phone',
-    //   amount: 231,
-    //   date: DateTime.now(),
-    // ),
-    // Transaction(
-    //   id: 't1',
-    //   title: 'Mobile Phone',
-    //   amount: 231,
-    //   date: DateTime.now(),
-    // ),
-    Transaction(
-      id: 't2',
-      title: 'Laptop',
-      amount: 504,
       date: DateTime.now(),
     ),
     Transaction(
       id: 't2',
-      title: 'Laptop',
-      amount: 504,
+      title: 'Mobile Phone 2',
+      amount: 231,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't3',
+      title: 'Mobile Phone 3',
+      amount: 231,
       date: DateTime.now(),
     ),
     // Transaction(
-    //   id: 't2',
-    //   title: 'Laptop',
-    //   amount: 50456,
+    //   id: 't1',
+    //   title: 'Mobile Phone',
+    //   amount: 231,
     //   date: DateTime.now(),
     // ),
     // Transaction(
-    //   id: 't2',
-    //   title: 'Laptop',
-    //   amount: 50456,
+    //   id: 't1',
+    //   title: 'Mobile Phone',
+    //   amount: 231,
     //   date: DateTime.now(),
     // ),
     // Transaction(
-    //   id: 't2',
-    //   title: 'Laptop',
-    //   amount: 50456,
+    //   id: 't1',
+    //   title: 'Mobile Phone',
+    //   amount: 231,
     //   date: DateTime.now(),
     // ),
     // Transaction(
-    //   id: 't2',
-    //   title: 'Laptop',
-    //   amount: 50456,
+    //   id: 't1',
+    //   title: 'Mobile Phone',
+    //   amount: 231,
     //   date: DateTime.now(),
     // ),
     // Transaction(
-    //   id: 't2',
-    //   title: 'Laptop',
-    //   amount: 50456,
+    //   id: 't1',
+    //   title: 'Mobile Phone',
+    //   amount: 231,
     //   date: DateTime.now(),
     // ),
     // Transaction(
-    //   id: 't2',
-    //   title: 'Laptop',
-    //   amount: 50456,
+    //   id: 't1',
+    //   title: 'Mobile Phone',
+    //   amount: 231,
     //   date: DateTime.now(),
     // ),
     // Transaction(
-    //   id: 't2',
-    //   title: 'Laptop',
-    //   amount: 50456,
+    //   id: 't1',
+    //   title: 'Mobile Phone',
+    //   amount: 231,
     //   date: DateTime.now(),
     // ),
     // Transaction(
-    //   id: 't2',
-    //   title: 'Laptop',
-    //   amount: 50456,
+    //   id: 't1',
+    //   title: 'Mobile Phone',
+    //   amount: 231,
     //   date: DateTime.now(),
     // ),
+    Transaction(
+      id: 't4',
+      title: 'Laptop 1',
+      amount: 504,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't5',
+      title: 'Laptop 2',
+      amount: 504,
+      date: DateTime.now(),
+    ),
   ];
 
   List<Transaction> get _recentTransactions {
@@ -221,7 +172,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void _deleteTransaction(String id) {
     setState(() {
       _userTransactions.removeWhere((element) {
-        // return element.id;
+        return ((element.id == id) ? true : false);
       });
     });
   }
@@ -246,7 +197,7 @@ class _MyHomePageState extends State<MyHomePage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Chart(_recentTransactions),
-            TransactionList(_userTransactions)
+            TransactionList(_userTransactions, _deleteTransaction)
           ],
         ),
       ),
