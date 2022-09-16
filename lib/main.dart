@@ -201,6 +201,12 @@ class _MyHomePageState extends State<MyHomePage> {
         )
       ],
     );
+    final txListWidget = Container(
+      height: (MediaQuery.of(context).size.height -
+          appBar.preferredSize.height -
+          MediaQuery.of(context).padding.top),
+      child: TransactionList(_userTransactions, _deleteTransaction),
+    );
     return Scaffold(
       appBar: appBar,
       body: SingleChildScrollView(
@@ -231,13 +237,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         0.8,
                     child: Chart(_recentTransactions),
                   )
-                : Container(
-                    height: (MediaQuery.of(context).size.height -
-                        appBar.preferredSize.height -
-                        MediaQuery.of(context).padding.top),
-                    child:
-                        TransactionList(_userTransactions, _deleteTransaction),
-                  )
+                : txListWidget
           ],
         ),
       ),
