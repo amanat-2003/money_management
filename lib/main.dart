@@ -204,7 +204,7 @@ class _MyHomePageState extends State<MyHomePage> {
     final txListWidget = Container(
       height: (MediaQuery.of(context).size.height -
           appBar.preferredSize.height -
-          MediaQuery.of(context).padding.top),
+          MediaQuery.of(context).padding.top) * 0.7,
       child: TransactionList(_userTransactions, _deleteTransaction),
     );
     return Scaffold(
@@ -214,6 +214,8 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+
+            // Landscape Mode
             if (isLandscape)
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -229,15 +231,27 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ],
               ),
-            _showChart
-                ? Container(
-                    height: (MediaQuery.of(context).size.height -
-                            appBar.preferredSize.height -
-                            MediaQuery.of(context).padding.top) *
-                        0.8,
-                    child: Chart(_recentTransactions),
-                  )
-                : txListWidget
+            if (isLandscape)
+              _showChart
+                  ? Container(
+                      height: (MediaQuery.of(context).size.height -
+                              appBar.preferredSize.height -
+                              MediaQuery.of(context).padding.top) *
+                          0.8,
+                      child: Chart(_recentTransactions),
+                    )
+                  : txListWidget,
+
+            // Portrait Mode
+            if (!isLandscape)
+              Container(
+                height: (MediaQuery.of(context).size.height -
+                        appBar.preferredSize.height -
+                        MediaQuery.of(context).padding.top) *
+                    0.3,
+                child: Chart(_recentTransactions),
+              ),
+            if (!isLandscape) txListWidget,
           ],
         ),
       ),
