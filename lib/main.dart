@@ -235,7 +235,7 @@ class _MyHomePageState extends State<MyHomePage> {
     ];
   }
 
-  AppBar _generateAppBar() {
+  PreferredSizeWidget _buildAppBar() {
     return AppBar(
       title: Text('Flutter App', style: TextStyle(fontFamily: 'OpenSans')),
       actions: [
@@ -253,7 +253,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     final isLandscape = (mediaQuery.orientation == Orientation.landscape);
-    final appBar = _generateAppBar();
+    final appBar = _buildAppBar();
     final txListWidget = Container(
       height: (mediaQuery.size.height -
               appBar.preferredSize.height -
@@ -262,7 +262,7 @@ class _MyHomePageState extends State<MyHomePage> {
       child: TransactionList(_userTransactions, _deleteTransaction),
     );
     return Scaffold(
-      appBar: _generateAppBar(),
+      appBar: appBar,
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
