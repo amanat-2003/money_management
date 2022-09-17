@@ -235,11 +235,8 @@ class _MyHomePageState extends State<MyHomePage> {
     ];
   }
 
-  @override
-  Widget build(BuildContext context) {
-    final mediaQuery = MediaQuery.of(context);
-    final isLandscape = (mediaQuery.orientation == Orientation.landscape);
-    final appBar = AppBar(
+  AppBar _generateAppBar() {
+    return AppBar(
       title: Text('Flutter App', style: TextStyle(fontFamily: 'OpenSans')),
       actions: [
         IconButton(
@@ -250,6 +247,13 @@ class _MyHomePageState extends State<MyHomePage> {
         )
       ],
     );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
+    final isLandscape = (mediaQuery.orientation == Orientation.landscape);
+    final appBar = _generateAppBar();
     final txListWidget = Container(
       height: (mediaQuery.size.height -
               appBar.preferredSize.height -
@@ -258,7 +262,7 @@ class _MyHomePageState extends State<MyHomePage> {
       child: TransactionList(_userTransactions, _deleteTransaction),
     );
     return Scaffold(
-      appBar: appBar,
+      appBar: _generateAppBar(),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
