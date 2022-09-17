@@ -186,11 +186,59 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  List<Widget> _buildLandscapeContent({
+    MediaQueryData mediaQuery,
+    AppBar appBar,
+    Widget txListWidget,
+  }) {
+    return [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text("Show Chart"),
+          Switch(
+            value: _showChart,
+            onChanged: (val) {
+              setState(() {
+                _showChart = val;
+              });
+            },
+          ),
+        ],
+      ),
+      _showChart
+          ? Container(
+              height: (mediaQuery.size.height -
+                      appBar.preferredSize.height -
+                      mediaQuery.padding.top) *
+                  0.8,
+              child: Chart(_recentTransactions),
+            )
+          : txListWidget
+    ];
+  }
+
+  List<Widget> _buildPortraitContent({
+    MediaQueryData mediaQuery,
+    AppBar appBar,
+    Widget txListWidget,
+  }) {
+    return [
+      Container(
+        height: (mediaQuery.size.height -
+                appBar.preferredSize.height -
+                mediaQuery.padding.top) *
+            0.3,
+        child: Chart(_recentTransactions),
+      ),
+      txListWidget
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
-    final isLandscape =
-        (mediaQuery.orientation == Orientation.landscape);
+    final isLandscape = (mediaQuery.orientation == Orientation.landscape);
     final appBar = AppBar(
       title: Text('Flutter App', style: TextStyle(fontFamily: 'OpenSans')),
       actions: [
@@ -218,41 +266,19 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             // Landscape Mode
             if (isLandscape)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text("Show Chart"),
-                  Switch(
-                    value: _showChart,
-                    onChanged: (val) {
-                      setState(() {
-                        _showChart = val;
-                      });
-                    },
-                  ),
-                ],
+              ..._buildLandscapeContent(
+                mediaQuery: mediaQuery,
+                appBar: appBar,
+                txListWidget: txListWidget,
               ),
-            if (isLandscape)
-              _showChart
-                  ? Container(
-                      height: (mediaQuery.size.height -
-                              appBar.preferredSize.height -
-                              mediaQuery.padding.top) *
-                          0.8,
-                      child: Chart(_recentTransactions),
-                    )
-                  : txListWidget,
 
             // Portrait Mode
             if (!isLandscape)
-              Container(
-                height: (mediaQuery.size.height -
-                        appBar.preferredSize.height -
-                        mediaQuery.padding.top) *
-                    0.3,
-                child: Chart(_recentTransactions),
+              ..._buildPortraitContent(
+                mediaQuery: mediaQuery,
+                appBar: appBar,
+                txListWidget: txListWidget,
               ),
-            if (!isLandscape) txListWidget,
           ],
         ),
       ),
